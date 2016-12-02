@@ -1,0 +1,54 @@
+# AutoCIFS Configuration
+
+# (c) 2016 by Martin Seener (martin.seener@barzahlen.de)
+# Licensed under the MIT License
+
+# The path to the AutoCIFS script location
+# Default: /usr/local/bin/autocifs.sh
+SCRIPTPATH="/usr/local/bin/autocifs.sh"
+
+# Set the log level
+# LOGLEVEL=2 debug, LOGLEVEL=1 normal logging, LOGLEVEL=0 disabled
+# Default: 1
+LOGLEVEL=1
+
+# The hostname or IP address of the CIFS Server
+# Can be an resolvable DNS Name like "cifsserver.example.com"
+# or an IP like "10.10.10.2"
+FILESERVER="cifsserver.example.com"
+
+# The CIFS protocol version used for the server checks and mounting
+# Since the checks are being performed with smbclient it needs a different version format
+# than mount for actually mounting the CIFS Share.
+# Default for CIFSVERSCHECK: SMB2 (can be NT1 (latest SMB1), SMB2 or SMB3 (req. Win 2012 Server and up))
+# Default for CIFSVERSMOUNT: 2.1 (can be 2.0, 2.1, 3.0 and some others)
+CIFSVERSCHECK="SMB2"
+CIFSVERSMOUNT="2.1"
+
+# User for the CIFS Share
+USERNAME="Guest"
+
+# Password for the CIFS Share
+PASSWORD="itsasecret"
+
+# Server Check interval (in seconds)
+# Default: 60 seconds
+INTERVAL=60
+
+# The shares that need to be mounted defined as an array
+# Example with 2 shares: MOUNTS=( "/mnt/share" "/var/remoteShare2|/var/localShare2" )
+# Explanation: AutoCIFS will try to mount both shares whereas in the second
+# mountpoint there are a different remote and local mountpoint which are divided by
+# the MOUNTSDELIMITER below. The default is the pipe.
+MOUNTS=( "/mnt/share" )
+MOUNTSDELIMITER="|"
+
+# Prerequisites:
+# AutoCIFS needs some external tools to work properly
+# and they're defined in the following array. It's made user-editable
+# in case you want to modify it or change/remove dependencies.
+# CAUTION: Normally you don't have to change anything unless you know what you're doing!
+ACIFSDEP[1]='smbclient'
+ACIFSDEP[2]='mount'
+ACIFSDEP[3]='umount'
+ACIFSDEP[4]='sleep'

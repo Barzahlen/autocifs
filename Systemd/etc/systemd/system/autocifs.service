@@ -1,0 +1,11 @@
+[Unit]
+Description=AutoCIFS is a client-side autofs-free CIFS Share Automount-Script
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/autocifs
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
